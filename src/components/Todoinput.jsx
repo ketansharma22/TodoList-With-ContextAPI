@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import '../styles/Todoinput.css'
 import { useTodo } from '../context'
 
-
-function Todoinput() {
-
+function TodoForm() {
+    
       const [todo,setTodo]=useState("")
       const {addTodo}=useTodo()
 
@@ -17,15 +15,25 @@ function Todoinput() {
             setTodo("")
       }
 
-  return (
-        <div id='container'>
-            <h1>Manage Your ToDo's </h1>
-            <form onSubmit={add}>
-                  <input value={todo} onChange={(e)=>{setTodo(e.target.value)}} type='text' placeholder='Write your Todo here...' />
-                  <button>Add</button>
-            </form>
-        </div>
-  )
-}
 
-export default Todoinput
+      return (
+           
+          <form  className="flex">
+            
+              <input
+                  type="text"
+                  placeholder="Write Todo..."
+                  value={todo}
+                  onChange={(e)=>{setTodo(e.target.value)}}
+                  className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"
+              />
+              <button type="submit" className="rounded-r-lg px-3 py-1 bg-green-600 text-white shrink-0">
+                  Add
+              </button>
+          </form>
+      );
+  }
+  
+  export default TodoForm;
+  
+  

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Todoinput from './components/Todoinput'
 import Todoitems from './components/Todoitems'
-import {TodoContextProvider} from './context'
+import {TodoProvider} from './context'
+
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
   useEffect(()=>{
     const todos =JSON.parse(localStorage.getItem("todos"))
 
-    if(todos && todos.lenght>0){
+    if( todos && todos.lenght > 0){
       setTodos(todos)
     }
 
@@ -38,15 +39,27 @@ function App() {
   },[todos])
 
   return(
-    <TodoContextProvider value={{todos,addTodo,deleteTodo,toggleComplete,updateTodo}}>
-      <div>
-        <Todoinput/>
-      </div>
-
-      <div>
-        <Todoitems/>
-      </div>
-    </TodoContextProvider>
+    <TodoProvider value={{ todos ,addTodo,deleteTodo,toggleComplete,updateTodo}}>
+      <div className="bg-[#172842] min-h-screen py-8">
+                <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
+                    <h1 className="text-2xl font-bold text-center mb-8 mt-2">Manage Your Todos</h1>
+                    <div className="mb-4">
+                        <Todoinput/> 
+                    </div>
+                    <div className="flex flex-wrap gap-y-3">
+                        {
+                          todos.map((todo) => (
+                            <div key={todo.id}
+                            className='w-full'
+                            >
+                              <Todoitems todo={todo} />
+                            </div>
+                          ))
+                        }
+                    </div>
+                </div>
+            </div>
+    </TodoProvider>
   )
 }
 
